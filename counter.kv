@@ -1,0 +1,266 @@
+<BackgroundColor@Widget>
+    background_color: 1, 1, 1, 1
+    canvas.before:
+        Color:
+            rgba: root.background_color
+        Rectangle:
+            size: self.size
+            pos: self.pos
+            
+# Now you can simply Mix the `BackgroundColor` class with almost
+# any other widget... to give it a background.
+<BackgroundLabel@Label+BackgroundColor>
+    background_color: 0, 0, 0, 0
+    
+    # Default the background color for this label
+    # to r 0, g 0, b 0, a 0
+# Use the BackgroundLabel any where in your kv code like below
+        
+
+<CounterGridLayout>
+    tickets_label: tickets_label
+    additional_time: additional_time
+    emergency_time: emergency_time
+    emergency_time_reason: emergency_time_reason
+    start_btn: start_btn
+    timer: timer
+    productivity: productivity
+    additional_time_reason: additional_time_reason
+    tickets_left: tickets_left
+    remove_hints: remove_hints
+    hint1: hint1
+    hint2: hint2
+    hint3: hint3
+    hint4: hint4
+    hint5: hint5
+    hint6: hint6
+    hint7: hint7
+    close_app: close_app
+    
+    FloatLayout:
+            
+            
+        
+        
+            
+
+    
+        
+        BackgroundLabel:
+            background_color: 0, 0, 0, .8
+            #pos: 100, 150
+            pos_hint: {"x": 0.1, "y": 0.2}
+            size_hint: .2, .1
+            text_size: self.width, self.height
+            font_size: self.height * 0.25
+            halign: "center"
+            valign: "middle"
+            id: tickets_label
+            text: "Tickets: 0"
+        
+        Button:
+            text: "+1 ticket"
+            #pos: 100, 75
+            pos_hint: {"x": 0.1, "y": 0.075}
+            size_hint: .2, .1
+            text_size: self.width, self.height
+            font_size: self.height * 0.25
+            halign: "center"
+            valign: "middle"
+
+            on_press: root.NewTicketButton()
+
+        
+        
+            
+        TextInput:
+            background_color: 1, 1, 1, .5
+            #pos: 100, 150
+            pos_hint: {"x": 0.7, "y": 0.2}
+            size_hint: .05, .05
+            cursor_color: 0, 0, 0, 1
+            id: additional_time
+            hint_text: "min"
+            hint_text_color: 0,0,0,.4
+            text: ""
+            multiline: False
+
+    
+
+        TextInput:
+            background_color: 1, 1, 1, .5
+            #pos: 100, 150
+            pos_hint: {"x": 0.75, "y": 0.2}
+            size_hint: .15, .05
+            cursor_color: 0, 0, 0, 1
+            id: additional_time_reason
+            hint_text: "activity name"
+            hint_text_color: 0,0,0,.4
+            text: ""
+            multiline: False
+
+        
+        Button:
+            text: "Spent time"
+            #pos: 100, 75
+            pos_hint: {"x": 0.7, "y": 0.075}
+            size_hint: .2, .1
+            text_size: self.width, self.height
+            font_size: self.height * 0.25
+            halign: "center"
+            valign: "middle"
+            on_press: root.additional_time_func()
+
+        TextInput:
+            background_color: 1, 1, 1, .5
+            #pos: 100, 150
+            pos_hint: {"x": 0.7, "y": 0.45}
+            size_hint: .05, .05
+            cursor_color: 0, 0, 0, 1
+            id: emergency_time
+            hint_text: "min"
+            hint_text_color: 0,0,0,.4
+            text: ""
+            multiline: False
+
+    
+
+        TextInput:
+            background_color: 1, 1, 1, .5
+            #pos: 100, 150
+            pos_hint: {"x": 0.75, "y": 0.45}
+            size_hint: .15, .05
+            cursor_color: 0, 0, 0, 1
+            id: emergency_time_reason
+            hint_text: "What happened?"
+            hint_text_color: 0,0,0,.4
+            text: ""
+            multiline: False
+
+        Button:
+            text: "Spent time"
+            #pos: 100, 75
+            pos_hint: {"x": 0.7, "y": 0.325}
+            size_hint: .2, .1
+            text_size: self.width, self.height
+            font_size: self.height * 0.25
+            halign: "center"
+            valign: "middle"
+            on_press: root.time_deduction()
+            
+
+        Label:
+            text: "   Type in the time (in minutes) you have\nspent on meeting, training, game time, etc.\n                                   ->"
+            pos_hint: {"x": 0.4, "y": 0.1825}
+            id: hint2
+            size_hint: .2, .1
+            
+        Label:
+            id: hint1
+            size_hint: .2, .1
+            text: "Press when you have sent,\n    a reply to the player. \n                    <-"
+            pos_hint: {"x": 0.4, "y": 0.075}
+            
+
+        Button:
+            id: start_btn
+            text: "Start!"
+            #pos: 100, 75
+            pos_hint: {"x": 0.35, "y": 0.325}
+            size_hint: .3, .2
+            text_size: self.width, self.height
+            font_size: self.height * 0.15
+            halign: "center"
+            valign: "middle"
+            on_press: root.StartTimerBtn()
+            
+    
+        BackgroundLabel:
+            background_color: 1, 1, 1, 1
+            color: 0, 0, 0, 1
+            #pos: 100, 150
+            pos_hint: {"right": 0.95, "y": 0.9}
+            size_hint: .125, .05
+            #size: 200, 100
+            text_size: self.width, self.height
+            font_size: self.height * 0.5
+            halign: "center"
+            valign: "middle"
+            id: timer
+            text: "0"
+
+        Button:
+            id: close_app
+            text: "End!"
+            pos_hint: {"right": 0.95, "y": 0.825}
+            size_hint: .125, .05
+            #size: 200, 100
+            text_size: self.width, self.height
+            font_size: self.height * 0.5
+            halign: "center"
+            valign: "middle"
+            on_press: root.close_app_func()
+
+            
+
+        BackgroundLabel:
+            background_color: 0, 0, 0, .8
+            #pos: 100, 150
+            pos_hint: {"x": 0.05, "y": 0.9}
+            size_hint: .275, .05
+            id: productivity
+            text_size: self.width, self.height
+            font_size: self.height * 0.5
+            halign: "left"
+            valign: "middle"
+            text: "  Productivity: "
+        
+        BackgroundLabel:
+            background_color: 0, 0, 0, .8
+            #pos: 100, 150
+            pos_hint: {"x": 0.05, "y": 0.825}
+            size_hint: .275, .05
+            id: tickets_left
+            text_size: self.width, self.height
+            font_size: self.height * 0.5
+            halign: "left"
+            valign: "middle"
+            text: "  Tickets left (to minimum): "   
+
+        Button:
+            id: remove_hints 
+            size_hint: .1, .025
+            pos_hint: {"x": 0.45,"y": 0.025}
+            text: "Remove hints"
+            text_size: self.width, self.height
+            font_size: self.height * 0.75
+            halign: "center"
+            valign: "middle"
+            on_press: root.remove_hints_func()
+
+        Label:
+            text: "Working time ->"
+            pos_hint: {"right": 0.85, "y": 0.875}
+            id: hint3
+            size_hint: .2, .1
+        Label:
+            text: "<- Your productivity."
+            pos_hint: {"x": 0.325, "y": 0.875}
+            id: hint4
+            size_hint: .2, .1
+        Label:
+            text: "Click to start the app"
+            pos_hint: {"x": 0.4, "y": 0.525}
+            id: hint5
+            size_hint: .2, .1
+        Label:
+            text: "         If you have to work less\n    due to any kind of emergency -\n write the time and the reason here.\n         Then, click " + "\"" + "Spent time" + "\"" + "."
+            pos_hint: {"x": 0.7, "y": 0.525}
+            id: hint6
+            size_hint: .2, .1
+
+        Label:
+            text: "                  It will close the app\n and record your statistics in file " + "\"" + "5CA.txt" + "\"" + " ->"
+            pos_hint: {"right": 0.725, "y": 0.815}
+            id: hint7
+            size_hint: .2, .1
