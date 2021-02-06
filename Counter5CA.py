@@ -16,24 +16,9 @@ import sys
 from kivy.lang import Builder
 import keyboard
 
-
 Window.clearcolor = (25/255.0, 55/255.0, 116/255.0, 1)
 
-
-
-
-
 class CounterGridLayout(FloatLayout):
-    
-
-
-    
-        
-    
-        
-
-      
-
     times_pressed = 0 
     tickets = 0
     additional_time = ObjectProperty(None)
@@ -57,31 +42,22 @@ class CounterGridLayout(FloatLayout):
     hint7 = ObjectProperty(None)
     tickets_label = ObjectProperty(None)
     tickets_left = ObjectProperty(None)
-    tickets_left_normal = 60
+    tickets_left_normal = 80
     close_app = ObjectProperty(None)
-
-    
 
     def NewTicketButton(self, *args):
         self.tickets += 1
         self.tickets_label.text = "Tickets: " + str(self.tickets) 
 
-    
     def key_input(self, *args):
         if keyboard.is_pressed('F9'):
             self.key_listener()
-            
-            
-	        
 
     def StartTimerBtn(self):
         self.times_pressed += 1
         self.key_listener2 = Clock.schedule_interval(self.key_input, 0.005)
         self.key_listener = Clock.create_trigger(self.NewTicketButton, timeout=0.25, interval=0.25)
-        
 
-        
-        
         if self.times_pressed == 1:
             file = open ("5CA.txt", "a", encoding="utf- 8")
             file.write(time.ctime() + "\n")
@@ -110,9 +86,6 @@ class CounterGridLayout(FloatLayout):
         self.function_interval.cancel()
 
     def additional_time_func(self):
-        # self.productive_time -= (int(self.additional_time.text)*60)
-        # #self.tickets_left.text = "  Tickets left (to minimum): " + str(round(((8*3600 - int(self.additional_time.text)*60)/3600 * 10) - self.tickets))
-        # self.tickets_left_normal -= int(self.additional_time.text) // 6
         file = open ("5CA.txt", "a", encoding="utf- 8")
         file.write(self.additional_time.text + " minutes was spent for " + "\"" + self.additional_time_reason.text + "\"" + "\n")
         file.close()
@@ -120,9 +93,8 @@ class CounterGridLayout(FloatLayout):
         self.additional_time.text = ""
 
     def time_deduction(self):
-        #делю нацело на 8, так как за 8 минут я должен отправить один тикет (при норме в 7.5 в час)
-        #self.productive_time -= (int(self.emergency_time.text)*60)
-        self.tickets_left_normal -= int(self.emergency_time.text) // 8
+        #делю нацело на 6, так как за 6 минут я должен отправить один тикет (при норме в 10 в час)
+        self.tickets_left_normal -= int(self.emergency_time.text) // 6
         file = open ("5CA.txt", "a", encoding="utf- 8")
         file.write("Your working hours were reduced by " + self.emergency_time.text + " minutes " + "due to the " + "\"" + self.emergency_time_reason.text + "\"" + "\n")
         file.close()
@@ -162,29 +134,12 @@ class CounterGridLayout(FloatLayout):
          + str(round(self.tickets / (self.productive_time/3600) if self.productive_time != 0 else 0, 2)) + "\n"*4)
         file.close()
         sys.exit()
-        
-            
-        
 
-        
-        
-     
-        
-        
-
-
- 
 class CounterApp(App):
     def build(self):
-        
         return CounterGridLayout()
-    
-            
-
-
 
 if __name__ == "__main__":
-    
     CounterApp().run()
     
     
